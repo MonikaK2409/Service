@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Service</string>
+    <string-array name="type">
+        <item>I am a</item>
+        <item>Service Provider</item>
+        <item>Service Consumer</item>
+    </string-array>
+</resources>
