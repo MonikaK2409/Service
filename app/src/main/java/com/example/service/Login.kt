@@ -15,6 +15,11 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.example.service.R.id.register
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class Login : ComponentActivity() {
     private lateinit var editTextUsername: EditText
@@ -22,6 +27,7 @@ class Login : ComponentActivity() {
     private lateinit var button: Button
     private lateinit var auth: FirebaseAuth
     private lateinit var progressBar: ProgressBar
+    private lateinit var database: DatabaseReference
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -40,7 +46,7 @@ class Login : ComponentActivity() {
         editTextUsername=findViewById(R.id.email1)
         editTextPassword=findViewById(R.id.password1)
         button=findViewById(R.id.button1)
-
+       database = FirebaseDatabase.getInstance().reference.child("users")
         progressBar=findViewById(R.id.progressbar)
         val btn: Button = findViewById(register)
 
@@ -68,17 +74,40 @@ class Login : ComponentActivity() {
                 }
 
                 auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener() { task ->
+                    .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
 
                                Toast.makeText(applicationContext,"Login Successful",Toast.LENGTH_SHORT).show()
-                                val intent = Intent(applicationContext, HomeActivity::class.java)
+                            database.orderByChild("email").equalTo(email)
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                        for (userSnapshot in dataSnapshot.children) {
+                                            // Retrieve the 'service' value for the specified email
+                                            val service = userSnapshot.child("service").getValue(String::class.java)
 
-                                // Start the LoginActivity
-                                startActivity(intent)
+                                            // Now 'service' contains the service value for the specified email
+                                            if (service != null) {
+                                                if (service == "Service Consumer") {
+                                                    // If service is "hello", navigate to one page
+                                                    val intentHello = Intent(applicationContext, HomeActivity::class.java)
+                                                    startActivity(intentHello)
+                                                } else {
+                                                    // If service is not "hello", navigate to another page
+                                                    val intentOther = Intent(applicationContext, Home2Activity::class.java)
+                                                    startActivity(intentOther)
+                                                }
+                                        }
+                                    }
 
-                        } else {
+
+                        }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                                    }
+                                })}
+                        else {
                             // If sign in fails, display a message to the user.
                             progressBar.visibility = View.GONE
                             Log.w(TAG, "signInWithEmail:failure", task.exception)

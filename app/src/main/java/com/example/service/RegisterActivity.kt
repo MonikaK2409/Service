@@ -43,12 +43,12 @@ class RegisterActivity : ComponentActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val intent = Intent(applicationContext, HomeActivity::class.java)
-
-            // Start the LoginActivity
-            startActivity(intent)
-        }
+//        if (currentUser != null) {
+//            val intent = Intent(applicationContext, HomeActivity::class.java)
+//
+//            // Start the LoginActivity
+//            startActivity(intent)
+//        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +102,18 @@ class RegisterActivity : ComponentActivity() {
                             ).show()
                             val user = User(userName, email, selectedSpinnerItem)
                             writeNewUser(user)
+                            if(selectedSpinnerItem=="Service Consumer") {
+                                val intent = Intent(applicationContext, HomeActivity::class.java)
+
+                                // Start the LoginActivity
+                                startActivity(intent)
+                            }
+                            else{
+                                val intent = Intent(applicationContext, Home2Activity::class.java)
+
+                                // Start the LoginActivity
+                                startActivity(intent)
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             progressBar.visibility = View.GONE
