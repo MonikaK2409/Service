@@ -100,8 +100,12 @@ class RegisterActivity : ComponentActivity() {
                                 "Account Created",
                                 Toast.LENGTH_SHORT,
                             ).show()
-                            val user = User(userName, email, selectedSpinnerItem)
-                            writeNewUser(user)
+                            val userMap = mapOf(
+                                "username" to userName,
+                                "email" to email,
+                                "service" to selectedSpinnerItem
+                            )
+                            writeNewUser(userMap)
                             if(selectedSpinnerItem=="Service Consumer") {
                                 val intent = Intent(applicationContext, HomeActivity::class.java)
 
@@ -127,13 +131,12 @@ class RegisterActivity : ComponentActivity() {
                         }
                     }
             }
-            fun writeNewUser(user: com.example.service.User) {
-
-
+            fun writeNewUser(userData: Map<String, String>) {
                 Log.d("MyTag", "writeNewUser function called")
                 val userRef = database.child("users").push()
-                userRef.setValue(user)
+                userRef.setValue(userData)
             }
+
         })
 
     }
