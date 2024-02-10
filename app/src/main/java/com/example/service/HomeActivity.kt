@@ -40,4 +40,32 @@ class HomeActivity : ComponentActivity() {
                 startActivity(intent)
             }
         } )
-}}
+}
+
+    fun makeupfun(view: View) {
+        val intent = Intent(applicationContext,UserMakeUp::class.java)
+        startActivity(intent)
+    }
+
+    fun plumberfun(view: View) {
+        val intent = Intent(applicationContext,UserPlumber::class.java)
+        startActivity(intent)
+    }
+
+    fun electricianfun(view: View) {
+        val intent = Intent(applicationContext,userElectrician::class.java)
+        startActivity(intent)
+    }
+    fun carpenterfun(view: View) {
+        val intent = Intent(applicationContext,UserCarpenter::class.java)
+        startActivity(intent)
+    }
+    fun homekeepingfun(view: View) {
+        val intent = Intent(applicationContext,UserHousekeeping::class.java)
+        startActivity(intent)
+    }
+    fun barberfun(view: View) {
+        val intent = Intent(applicationContext,UserBarber::class.java)
+        startActivity(intent)
+    }
+}
