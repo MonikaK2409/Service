@@ -24,7 +24,6 @@ class Home2Activity :  ComponentActivity(){
         user = auth.currentUser!!
         if(user==null){
             val intent = Intent(applicationContext,Login::class.java)
-
             // Start the LoginActivity
             startActivity(intent)
         }
@@ -38,5 +37,31 @@ class Home2Activity :  ComponentActivity(){
                 startActivity(intent)
             }
         } )
+    }
+
+    fun provMakeup(view: View) {
+        val intent = Intent(applicationContext,ProvMakeUp::class.java)
+        startActivity(intent)
+    }
+
+    fun provPlumber(view: View) {
+        val intent = Intent(applicationContext,ProvPlumber::class.java)
+        startActivity(intent)
+    }
+    fun provElec(view: View) {
+        val intent = Intent(applicationContext,ProvElectrician::class.java)
+        startActivity(intent)
+    }
+    fun provCarp(view: View) {
+        val intent = Intent(applicationContext,ProvCarpenter::class.java)
+        startActivity(intent)
+    }
+    fun provHouse(view: View) {
+        val intent = Intent(applicationContext,ProvHousekeeping::class.java)
+        startActivity(intent)
+    }
+    fun provBarber(view: View) {
+        val intent = Intent(applicationContext,ProvBarber::class.java)
+        startActivity(intent)
     }
 }

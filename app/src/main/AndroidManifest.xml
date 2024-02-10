@@ -15,6 +15,24 @@
         android:theme="@style/Theme.Service"
         tools:targetApi="31">
         <activity
+            android:name=".ProvBarber"
+            android:exported="false" />
+        <activity
+            android:name=".ProvHousekeeping"
+            android:exported="false" />
+        <activity
+            android:name=".ProvCarpenter"
+            android:exported="false" />
+        <activity
+            android:name=".ProvElectrician"
+            android:exported="false" />
+        <activity
+            android:name=".ProvPlumber"
+            android:exported="false" />
+        <activity
+            android:name=".ProvMakeUp"
+            android:exported="false" />
+        <activity
             android:name=".Home2Activity"
             android:exported="false" />
         <activity
