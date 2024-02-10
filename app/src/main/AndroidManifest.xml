@@ -15,9 +15,6 @@
         android:theme="@style/Theme.Service"
         tools:targetApi="31">
         <activity
-            android:name=".HomyActivity"
-            android:exported="false" />
-        <activity
             android:name=".ProvBarber"
             android:exported="false" />
         <activity
