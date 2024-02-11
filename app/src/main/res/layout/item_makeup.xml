@@ -55,8 +55,8 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:text="+ADD"
-                android:id="@+id/addbtn"
-                android:onClick="sendMessage"/>
+                android:id="@+id/btnAdd"
+                android:onClick="onAddButtonClick"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

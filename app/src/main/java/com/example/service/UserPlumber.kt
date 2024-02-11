@@ -1,12 +1,14 @@
 package com.example.service
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -25,7 +27,8 @@ class UserPlumber : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var plumberAdapter: PlumberAdapter
     private lateinit var databaseReference: DatabaseReference
-
+    private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,7 @@ class UserPlumber : ComponentActivity() {
         // Initialize RecyclerView and adapter
         recyclerView = findViewById(R.id.recyclerView2)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        plumberAdapter = PlumberAdapter()
+        plumberAdapter = PlumberAdapter(this)
         recyclerView.adapter = plumberAdapter
 
         // Initialize Firebase database reference
@@ -72,7 +75,33 @@ class UserPlumber : ComponentActivity() {
         })
     }
 
-    fun sendMessage(view: View) {
-
+     fun onAddButtonClick(plumberData: PlumberData) {
+        // Handle button click here
+        // plumberData contains the details of the clicked item
+        // You can perform any action based on the clicked item's details
+        databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
+        auth= FirebaseAuth.getInstance()
+        // Initialize EditText fields
+        user=auth.currentUser!!
+        val userMap = mapOf(
+            "userName" to user.email,
+            "providerName" to plumberData.field2
+        )
+        writeNewUser(userMap)
+    }
+    private fun writeNewUser(userMap: Map<String, String?>) {
+        Log.d("MyTag", "writeNewUser function called")
+        val userRef = databaseReference.push()
+        userRef.setValue(userMap)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Successfully Added your data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(intent)
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Sorry..An error occurred", Toast.LENGTH_SHORT).show()
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(intent)
+            }
     }
 }

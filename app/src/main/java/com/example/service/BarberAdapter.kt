@@ -3,9 +3,10 @@ package com.example.service
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-class BarberAdapter : RecyclerView.Adapter<BarberAdapter.BarberViewHolder>() {
+class BarberAdapter(private val listener: UserBarber) : RecyclerView.Adapter<BarberAdapter.BarberViewHolder>() {
     private var barberDataList = listOf<BarberData>()
 
     class BarberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -13,6 +14,7 @@ class BarberAdapter : RecyclerView.Adapter<BarberAdapter.BarberViewHolder>() {
         val textViewUserName: TextView = itemView.findViewById(R.id.textViewUserName)
         val textViewAddress: TextView = itemView.findViewById(R.id.textViewAddress)
         val textViewServicesProvided: TextView = itemView.findViewById(R.id.textViewServicesProvided)
+        val btnAdd: Button = itemView.findViewById(R.id.btnAdd)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BarberViewHolder {
@@ -27,6 +29,9 @@ class BarberAdapter : RecyclerView.Adapter<BarberAdapter.BarberViewHolder>() {
         holder.textViewUserName.text = currentItem.field2
         holder.textViewAddress.text = currentItem.field3
         holder.textViewServicesProvided.text = currentItem.field4
+        holder.btnAdd.setOnClickListener {
+            listener.onAddButtonClick(currentItem)
+        }
     }
 
     override fun getItemCount(): Int {

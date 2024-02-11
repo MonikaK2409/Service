@@ -2,9 +2,10 @@ package com.example.service
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-class HousekeepingAdapter : RecyclerView.Adapter<HousekeepingAdapter.HousekeepingViewHolder>() {
+class HousekeepingAdapter(private val listener: UserHousekeeping) : RecyclerView.Adapter<HousekeepingAdapter.HousekeepingViewHolder>() {
     private var housekeepingDataList = listOf<HousekeepingData>()
 
     class HousekeepingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -12,6 +13,7 @@ class HousekeepingAdapter : RecyclerView.Adapter<HousekeepingAdapter.Housekeepin
         val textViewUserName: TextView = itemView.findViewById(R.id.textViewUserName)
         val textViewAddress: TextView = itemView.findViewById(R.id.textViewAddress)
         val textViewServicesProvided: TextView = itemView.findViewById(R.id.textViewServicesProvided)
+        val btnAdd: Button = itemView.findViewById(R.id.btnAdd)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HousekeepingViewHolder {
@@ -26,6 +28,9 @@ class HousekeepingAdapter : RecyclerView.Adapter<HousekeepingAdapter.Housekeepin
         holder.textViewUserName.text = currentItem.field2
         holder.textViewAddress.text = currentItem.field3
         holder.textViewServicesProvided.text = currentItem.field4
+        holder.btnAdd.setOnClickListener {
+            listener.onAddButtonClick(currentItem)
+        }
     }
 
     override fun getItemCount(): Int {

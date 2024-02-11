@@ -1,12 +1,17 @@
 package com.example.service
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -25,6 +30,8 @@ class UserHousekeeping : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var housekeepingAdapter: HousekeepingAdapter
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +40,7 @@ class UserHousekeeping : ComponentActivity() {
         // Initialize RecyclerView and adapter
         recyclerView = findViewById(R.id.recyclerView6)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        housekeepingAdapter = HousekeepingAdapter()
+        housekeepingAdapter = HousekeepingAdapter(this)
         recyclerView.adapter = housekeepingAdapter
 
         // Initialize Firebase database reference
@@ -70,7 +77,33 @@ class UserHousekeeping : ComponentActivity() {
         })
     }
 
-    fun sendMessage(view: View) {
-
+    fun onAddButtonClick(housekeepingData: HousekeepingData) {
+        // Handle button click here
+        // plumberData contains the details of the clicked item
+        // You can perform any action based on the clicked item's details
+        databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
+        auth= FirebaseAuth.getInstance()
+        // Initialize EditText fields
+        user=auth.currentUser!!
+        val userMap = mapOf(
+            "userName" to user.email,
+            "providerName" to housekeepingData.field2
+        )
+        writeNewUser(userMap)
+    }
+    private fun writeNewUser(userMap: Map<String, String?>) {
+        Log.d("MyTag", "writeNewUser function called")
+        val userRef = databaseReference.push()
+        userRef.setValue(userMap)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Successfully Added your data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(intent)
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Sorry..An error occurred", Toast.LENGTH_SHORT).show()
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(intent)
+            }
     }
 }

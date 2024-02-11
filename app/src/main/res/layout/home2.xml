@@ -48,201 +48,230 @@
     <GridLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:rowCount="3"
+        android:layout_height="603dp"
         android:layout_below="@+id/texty"
-        android:columnCount="2">
+        android:columnCount="2"
+        android:rowCount="3">
+
         <androidx.cardview.widget.CardView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_row="0"
+            android:layout_rowWeight="1"
             android:layout_column="0"
-            android:layout_gravity="fill"
 
-            android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:layout_gravity="fill"
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-
-                android:background="@drawable/framey"
-                android:layout_gravity="center_vertical">
-
-                <Button
-                    android:id="@+id/mkp"
-                    android:layout_width="100dp"
-                    android:layout_height="70dp"
-                    android:layout_row="0"
-                    android:background="@drawable/transparent"
-                    android:layout_column="0"
-                    android:onClick="provMakeup"
-                    android:text="Make Up" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_gravity="fill"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-               android:background="@drawable/framey"
-                android:layout_gravity="center_vertical">
-
-                <Button
-                    android:id="@+id/pbp"
-                    android:layout_width="100dp"
-                    android:background="@drawable/transparent"
-                    android:layout_height="70dp"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:onClick="provPlumber"
-                    android:text="plumber" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_gravity="fill"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            >
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/framey"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
+                <ImageButton
+                    android:id="@+id/mkp"
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:onClick="provMakeup"
+                    android:src="@drawable/makeup"
+                    android:text="Make Up" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Make Up" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/pbp"
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:onClick="provPlumber"
+                    android:src="@drawable/plumber"
+                    android:text="plumber" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Make Up" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
                     android:id="@+id/elp"
                     android:layout_width="100dp"
-                    android:background="@drawable/transparent"
                     android:layout_height="70dp"
                     android:layout_row="1"
                     android:layout_column="0"
                     android:onClick="provElec"
+                    android:src="@drawable/electrician"
+                    android:text="Electrician" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Electrician" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_row="1"
-            android:layout_column="1"
-            android:layout_gravity="fill"
             android:layout_rowWeight="1"
+            android:layout_column="1"
             android:layout_columnWeight="1"
+            android:layout_gravity="fill"
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            >
+            app:cardElevation="8dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/framey"
+                android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:layout_gravity="center_vertical">
-                <Button
+                android:orientation="vertical">
+
+                <ImageButton
                     android:id="@+id/carp"
                     android:layout_width="100dp"
                     android:layout_height="70dp"
                     android:layout_row="1"
                     android:layout_column="1"
-                    android:background="@drawable/transparent"
                     android:onClick="provCarp"
+                    android:src="@drawable/carpenter"
+                    android:text="Carpenter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Carpenter" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_row="2"
-            android:layout_column="0"
-            android:layout_gravity="fill"
             android:layout_rowWeight="1"
+            android:layout_column="0"
             android:layout_columnWeight="1"
+            android:layout_gravity="fill"
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            >
+            app:cardElevation="8dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
                 android:gravity="center"
+                android:orientation="vertical">
 
-                android:background="@drawable/framey"
-                android:layout_gravity="center_vertical">
-                <Button
+                <ImageButton
                     android:id="@+id/housek"
-                    android:layout_width="156dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/transparent"
+                    android:layout_width="115dp"
+                    android:layout_height="57dp"
                     android:layout_row="2"
                     android:layout_column="0"
                     android:onClick="provHouse"
+                    android:src="@drawable/housekeeping"
+                    android:text="Housekeeping" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Housekeeping" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_row="2"
-            android:layout_column="1"
-            android:layout_gravity="fill"
             android:layout_rowWeight="1"
+            android:layout_column="1"
             android:layout_columnWeight="1"
+            android:layout_gravity="fill"
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            >
+            app:cardElevation="8dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-
-                android:background="@drawable/framey"
+                android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:layout_gravity="center_vertical">
-                <Button
+                android:orientation="vertical">
+
+                <ImageButton
                     android:id="@+id/barber"
-                    android:layout_width="156dp"
-                    android:layout_height="70dp"
+                    android:layout_width="110dp"
+                    android:layout_height="67dp"
                     android:layout_row="2"
                     android:layout_column="1"
-                    android:background="@drawable/transparent"
                     android:onClick="provBarber"
+                    android:src="@drawable/hairdresser"
+                    android:text="Barber" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Barber" />
             </LinearLayout>
 
