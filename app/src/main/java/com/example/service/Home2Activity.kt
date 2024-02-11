@@ -64,4 +64,9 @@ class Home2Activity :  ComponentActivity(){
         val intent = Intent(applicationContext,ProvBarber::class.java)
         startActivity(intent)
     }
+
+    fun gotoinfo(view: View) {
+        val intent = Intent(applicationContext,CartActivity::class.java)
+        startActivity(intent)
+    }
 }

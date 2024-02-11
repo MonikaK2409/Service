@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Service"
         tools:targetApi="31">
         <activity
+            android:name=".CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InfocartActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserHousekeeping"
             android:exported="false" />
         <activity

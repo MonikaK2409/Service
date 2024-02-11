@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/texty"
-        android:layout_width="258dp"
+        android:layout_width="200dp"
         android:layout_height="54dp"
         android:text="YOUR HOME!"
         android:textSize="15dp"
@@ -24,13 +24,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.007" />
-
+<ImageButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/baseline_info_24"
+    android:id="@+id/info"
+    android:layout_toEndOf="@+id/texty"
+    android:onClick="gotoinfo"
+    />
     <Button
         android:id="@+id/loggout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log out"
-        android:layout_toEndOf="@+id/texty"
+        android:layout_toEndOf="@+id/info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

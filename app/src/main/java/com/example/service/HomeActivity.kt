@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.activity.ComponentActivity
@@ -17,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 
 class HomeActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var button: Button
+    private lateinit var button: ImageButton
     private lateinit var text: TextView
     private lateinit var user: FirebaseUser
 
