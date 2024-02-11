@@ -6,7 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.activity.ComponentActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import com.example.service.R.id.text3
+
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -17,13 +22,15 @@ class HomeActivity : ComponentActivity() {
     private lateinit var user: FirebaseUser
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
         auth= FirebaseAuth.getInstance()
         button=findViewById(R.id.logout)
-        text=findViewById(R.id.textt)
+        text=findViewById(text3)
         user = auth.currentUser!!
+
         if(user==null){
             val intent = Intent(applicationContext,Login::class.java)
 
