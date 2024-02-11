@@ -23,8 +23,8 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val currentItem = orderList[position]
 
-        holder.textViewCustomerName.text = currentItem.field2
-        holder.textViewServiceName.text = currentItem.field3
+        holder.textViewCustomerName.text = currentItem.userName
+        holder.textViewServiceName.text = currentItem.services
         // Bind more data as needed
     }
 

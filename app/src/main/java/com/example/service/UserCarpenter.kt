@@ -82,7 +82,8 @@ class UserCarpenter : ComponentActivity() {
         user=auth.currentUser!!
         val userMap = mapOf(
             "userName" to user.email,
-            "providerName" to carpenterData.field2
+            "providerName" to carpenterData.field2,
+            "services" to carpenterData.field4
         )
         writeNewUser(userMap)
     }

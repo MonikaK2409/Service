@@ -89,7 +89,8 @@ class UserMakeUp : ComponentActivity() {
         user=auth.currentUser!!
         val userMap = mapOf(
             "userName" to user.email,
-            "providerName" to makeupData.field2
+            "providerName" to makeupData.field2,
+            "services" to makeupData.field4
         )
         writeNewUser(userMap)
     }

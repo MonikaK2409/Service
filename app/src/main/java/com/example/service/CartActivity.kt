@@ -2,6 +2,7 @@ package com.example.service
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +16,10 @@ import com.google.firebase.database.ValueEventListener
 
 data class Order(
     val userId: String? = null,
-    val field1: String? = null,
-    val field2: String? = null,
-    val field3: String? = null
-    // Add other fields as needed
+    val services: String? = null,  // Update field1 to services
+    val userName: String? = null,  // Update field2 to userName
+    val providerName: String? = null,  // Update field3 to providerName
+
 )
 
 class CartActivity : ComponentActivity() {
@@ -34,7 +35,8 @@ class CartActivity : ComponentActivity() {
         auth= FirebaseAuth.getInstance()
         // Initialize EditText fields
         user=auth.currentUser!!
-        providerName = user.toString()
+        providerName = user.email.toString()
+        Log.d("CartActivity", "Provider Name: $providerName")
 
         // Initialize RecyclerView and adapter
         recyclerView = findViewById(R.id.recyclerView7)

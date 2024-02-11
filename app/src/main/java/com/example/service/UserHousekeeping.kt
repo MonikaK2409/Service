@@ -87,7 +87,8 @@ class UserHousekeeping : ComponentActivity() {
         user=auth.currentUser!!
         val userMap = mapOf(
             "userName" to user.email,
-            "providerName" to housekeepingData.field2
+            "providerName" to housekeepingData.field2,
+            "services" to housekeepingData.field4
         )
         writeNewUser(userMap)
     }
