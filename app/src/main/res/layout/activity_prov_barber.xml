@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProvBarber">
+
     <LinearLayout
-        android:layout_width="356dp"
-        android:layout_height="618dp"
+        android:layout_width="344dp"
+        android:layout_height="611dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
