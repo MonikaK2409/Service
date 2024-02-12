@@ -7,43 +7,65 @@
     android:background="@drawable/bgbg"
     tools:context=".Home2Activity">
 
+    <!--<ImageButton-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:src="@drawable/baseline_info_24"-->
+<!--    android:id="@+id/info"-->
+<!--    android:layout_toEndOf="@+id/texty"-->
+<!--    android:onClick="gotoinfo"-->
+<!--    />-->
+<!--    <Button-->
+<!--        android:id="@+id/loggout"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Log out"-->
+<!--        android:layout_toEndOf="@+id/info"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.95"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.017" />-->
+
+    <TextView
+        android:layout_width="137dp"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="237dp"
+        android:layout_marginBottom="677dp"
+        android:text="WELCOME ! "
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/texty"
         android:layout_width="200dp"
         android:layout_height="54dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-1dp"
+
+        android:layout_marginBottom="10dp"
         android:text="YOUR HOME!"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:layout_margin="10dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.007" />
-<ImageButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/baseline_info_24"
-    android:id="@+id/info"
-    android:layout_toEndOf="@+id/texty"
-    android:onClick="gotoinfo"
-    />
-    <Button
-        android:id="@+id/loggout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log out"
-        android:layout_toEndOf="@+id/info"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.017" />
 
     <GridLayout
 
@@ -123,7 +145,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Make Up" />
+                    android:text="Plumber" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -278,6 +300,42 @@
         </androidx.cardview.widget.CardView>
     </GridLayout>
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="129dp"
+        android:layout_height="37dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="715dp"
+        android:layout_marginEnd="235dp"
+        android:layout_marginBottom="-13dp"
+        android:text="My Services" />
+
+    <Button
+        android:id="@+id/info"
+        android:layout_width="129dp"
+        android:layout_height="37dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="gotoinfo"
+        android:layout_marginTop="715dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="-12dp"
+        android:text="Cart" />
+
+    <Button
+        android:id="@+id/loggout"
+        android:layout_width="129dp"
+        android:layout_height="37dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="715dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginBottom="-12dp"
+        android:text="Logout" />
 </RelativeLayout>
 
 

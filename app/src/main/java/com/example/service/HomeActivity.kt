@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 
 class HomeActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var button: ImageButton
+    private lateinit var button: Button
     private lateinit var text: TextView
     private lateinit var user: FirebaseUser
 
