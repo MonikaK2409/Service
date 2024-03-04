@@ -74,10 +74,22 @@ class userElectrician : ComponentActivity() {
         })
     }
     fun onAddButtonClick(electricianData: ElectricianData) {
+        databaseReference = FirebaseDatabase.getInstance().reference.child("cart")
+        auth = FirebaseAuth.getInstance()
+        // Initialize EditText fields
+        user = auth.currentUser!!
+        val userMap = mapOf(
+            "userName" to user.email,
+            "enterpriseName" to electricianData.field1,
+            "providerName" to electricianData.field2,
+            "address" to electricianData.field3,
+            "services" to electricianData.field4
+        )
+        writeNewUser(userMap)
         // Handle button click here
         // plumberData contains the details of the clicked item
         // You can perform any action based on the clicked item's details
-        databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
+       /* databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
         auth= FirebaseAuth.getInstance()
         // Initialize EditText fields
         user=auth.currentUser!!
@@ -86,14 +98,14 @@ class userElectrician : ComponentActivity() {
             "providerName" to electricianData.field2,
             "services" to electricianData.field4
         )
-        writeNewUser(userMap)
+        writeNewUser(userMap)*/
     }
     private fun writeNewUser(userMap: Map<String, String?>) {
         Log.d("MyTag", "writeNewUser function called")
         val userRef = databaseReference.push()
         userRef.setValue(userMap)
             .addOnSuccessListener {
-                Toast.makeText(this, "Successfully Added your data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Successfully Added to your cart", Toast.LENGTH_SHORT).show()
                 val intent = Intent(applicationContext, HomeActivity::class.java)
                 startActivity(intent)
             }

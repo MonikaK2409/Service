@@ -49,7 +49,10 @@ class HomeActivity : ComponentActivity() {
             }
         } )
 }
-
+    fun cartclicked(view: View) {
+        val intent = Intent(applicationContext,UserCart::class.java)
+        startActivity(intent)
+    }
     fun makeupfun(view: View) {
         val intent = Intent(applicationContext,UserMakeUp::class.java)
         startActivity(intent)

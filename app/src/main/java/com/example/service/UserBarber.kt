@@ -77,26 +77,29 @@ class UserBarber : ComponentActivity() {
     }
 
     fun onAddButtonClick(barberData: BarberData) {
-        // Handle button click here
-        // plumberData contains the details of the clicked item
-        // You can perform any action based on the clicked item's details
-        databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
-        auth= FirebaseAuth.getInstance()
+        databaseReference = FirebaseDatabase.getInstance().reference.child("cart")
+        auth = FirebaseAuth.getInstance()
         // Initialize EditText fields
-        user=auth.currentUser!!
+        user = auth.currentUser!!
         val userMap = mapOf(
             "userName" to user.email,
+            "enterpriseName" to barberData.field1,
             "providerName" to barberData.field2,
+            "address" to barberData.field3,
             "services" to barberData.field4
         )
         writeNewUser(userMap)
+
+        // Check if the cart item key is not null
+
     }
+
     private fun writeNewUser(userMap: Map<String, String?>) {
         Log.d("MyTag", "writeNewUser function called")
         val userRef = databaseReference.push()
         userRef.setValue(userMap)
             .addOnSuccessListener {
-                Toast.makeText(this, "Successfully Added your data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Successfully Added to your cart", Toast.LENGTH_SHORT).show()
                 val intent = Intent(applicationContext, HomeActivity::class.java)
                 startActivity(intent)
             }

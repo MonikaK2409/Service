@@ -2,10 +2,8 @@ package com.example.service
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,57 +16,60 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-data class HousekeepingData(
-    val userId: String? = null,
-    val field1: String? = null,
-    val field2: String? = null,
-    val field3: String? = null,
-    val field4: String? = null
+data class CartItem(
+    val userName:String? = null,
+    val enterpriseName: String? = null,
+    val providerName: String? = null,
+    val address: String? = null,
+    val services: String? = null
     // Add other fields as needed
 )
-class UserHousekeeping : ComponentActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var housekeepingAdapter: HousekeepingAdapter
+class UserCart : ComponentActivity() {
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var cartAdapter: CartAdapter
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
-    @SuppressLint("MissingInflatedId")
+    private lateinit var userName:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_housekeeping)
-
-        // Initialize RecyclerView and adapter
-        recyclerView = findViewById(R.id.recyclerView6)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        housekeepingAdapter = HousekeepingAdapter(this)
-        recyclerView.adapter = housekeepingAdapter
-
+        setContentView(R.layout.activity_user_cart)
+        auth = FirebaseAuth.getInstance()
+        user=auth.currentUser!!
         // Initialize Firebase database reference
-        databaseReference = FirebaseDatabase.getInstance().reference.child("housekeeping")
+        databaseReference = FirebaseDatabase.getInstance().reference.child("cart")
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        cartAdapter = CartAdapter(this)
+        recyclerView.adapter = cartAdapter
+        userName=user.email.toString()
+        Log.d("CartActivity", "User Name: $userName")
+        // Initialize Firebase authentication
 
-        // Fetch makeup data from Firebase
-        fetchMakeupData()
+
+        // Get current user
+        fetchCartItems()
     }
-    private fun fetchMakeupData() {
+    private fun fetchCartItems() {
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val housekeepingDataList = mutableListOf<HousekeepingData>()
+                val cartDataList = mutableListOf<CartItem>()
 
                 for (snapshot in dataSnapshot.children) {
                     val userId = snapshot.key
                     val fields = snapshot.value as Map<String, String>
-
+                    val userName = fields["userName"]?:" "
                     val field1 = fields["enterpriseName"] ?: ""
-                    val field2 = fields["userName"] ?: ""
+                    val field2 = fields["providerName"] ?: ""
                     val field3 = fields["address"] ?: ""
-                    val field4 = fields["servicesProvided"] ?: ""
+                    val field4 = fields["services"] ?: ""
 
-                    val makeupData = HousekeepingData(userId,field1, field2, field3, field4)
-                    housekeepingDataList.add(makeupData)
+                    val cartData = CartItem(userName,field1, field2, field3, field4)
+                    cartDataList.add(cartData)
                 }
 
                 // Update the adapter with fetched data
-                housekeepingAdapter.setData(housekeepingDataList)
+                cartAdapter.setData(cartDataList)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -77,39 +78,26 @@ class UserHousekeeping : ComponentActivity() {
         })
     }
 
-    fun onAddButtonClick(housekeepingData: HousekeepingData) {
-        databaseReference = FirebaseDatabase.getInstance().reference.child("cart")
-        auth = FirebaseAuth.getInstance()
-        // Initialize EditText fields
-        user = auth.currentUser!!
-        val userMap = mapOf(
-            "userName" to user.email,
-            "enterpriseName" to housekeepingData.field1,
-            "providerName" to housekeepingData.field2,
-            "address" to housekeepingData.field3,
-            "services" to housekeepingData.field4
-        )
-        writeNewUser(userMap)
-        // Handle button click here
-        // plumberData contains the details of the clicked item
-        // You can perform any action based on the clicked item's details
-        /*databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
+    fun onBookButtonClick(cartsItem: CartItem) {
+        // Get reference to requests node
+        databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
         auth= FirebaseAuth.getInstance()
         // Initialize EditText fields
         user=auth.currentUser!!
         val userMap = mapOf(
             "userName" to user.email,
-            "providerName" to housekeepingData.field2,
-            "services" to housekeepingData.field4
+            "providerName" to cartsItem.providerName,
+            "services" to cartsItem.services
         )
-        writeNewUser(userMap)*/
+        writeNewUser(userMap)
     }
+
     private fun writeNewUser(userMap: Map<String, String?>) {
         Log.d("MyTag", "writeNewUser function called")
         val userRef = databaseReference.push()
         userRef.setValue(userMap)
             .addOnSuccessListener {
-                Toast.makeText(this, "Successfully Added to your cart", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Successfully Added your data", Toast.LENGTH_SHORT).show()
                 val intent = Intent(applicationContext, HomeActivity::class.java)
                 startActivity(intent)
             }
@@ -118,5 +106,9 @@ class UserHousekeeping : ComponentActivity() {
                 val intent = Intent(applicationContext, HomeActivity::class.java)
                 startActivity(intent)
             }
+    }
+
+    companion object {
+        private const val TAG = "CartActivity"
     }
 }
