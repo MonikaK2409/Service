@@ -26,7 +26,7 @@ class MyOrderAdapter : RecyclerView.Adapter<MyOrderAdapter.MyOrderViewHolder>(){
     override fun onBindViewHolder(holder: MyOrderViewHolder, position: Int){
         val currentItem = orderList[position]
 
-        holder.textViewCustomerName.text = currentItem.userName
+        holder.textViewCustomerName.text = currentItem.providerName
         holder.textViewServiceName.text = currentItem.services
         holder.textViewStatus.text = currentItem.requestStatus
         holder.ratingsButton.setOnClickListener{
