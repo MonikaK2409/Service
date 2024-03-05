@@ -78,4 +78,9 @@ class Home2Activity :  ComponentActivity(){
         val intent = Intent(applicationContext,CartActivity::class.java)
         startActivity(intent)
     }
+
+    fun show(view: View) {
+        val intent = Intent(applicationContext,MyserviceActivity::class.java)
+        startActivity(intent)
+    }
 }
