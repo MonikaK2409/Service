@@ -79,4 +79,9 @@ class HomeActivity : ComponentActivity() {
         val intent = Intent(applicationContext,UserBarber::class.java)
         startActivity(intent)
     }
+
+    fun ordersbuttonclicked(view: View) {
+        val intent = Intent(applicationContext,ordersOfConsumer::class.java)
+        startActivity(intent)
+    }
 }

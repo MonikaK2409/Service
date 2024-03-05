@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -23,6 +24,7 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewCustomerName: TextView = itemView.findViewById(R.id.textViewCustomerName)
         val textViewServiceName:TextView= itemView.findViewById(R.id.textViewServiceName)
+        val textViewStatus:TextView= itemView.findViewById(R.id.textViewStatus)
         val acceptButton: Button = itemView.findViewById(R.id.acceptButton)
         val rejectButton: Button = itemView.findViewById(R.id.rejectButton)
         // Add more views as needed
@@ -38,41 +40,75 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
         holder.textViewCustomerName.text = currentItem.userName
         holder.textViewServiceName.text = currentItem.services
+        holder.textViewStatus.text = currentItem.requestStatus
         // Bind more data as needed
         holder.acceptButton.setOnClickListener {
-            // Implement accept functionality
-            // For example, navigate to a new activity to show extra information
-        }
+            val databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
 
-        holder.rejectButton.setOnClickListener {
-            val database = FirebaseDatabase.getInstance()
-            val databaseReference = database.getReference("requests")
-
-            // Remove the rejected service from the database
             val query = databaseReference.orderByChild("providerName").equalTo(currentItem.providerName)
+
             query.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (snapshot in dataSnapshot.children) {
+                        // Assuming there's only one matching request, you can update its status
+                        val requestId = snapshot.key // Assuming the unique identifier is the key of the snapshot
+
+                        // Update requestStatus to "Rejected"
                         val snapshotOrder = snapshot.getValue(Order::class.java)
-                        if (snapshotOrder != null && snapshotOrder.services == currentItem.services && snapshotOrder.userName == currentItem.userName) {
-                            snapshot.ref.removeValue()
-                            Log.d("Deletion", "Deleted item: ${currentItem.userId}")
+                        if (snapshotOrder != null && snapshotOrder.providerName == currentItem.providerName && snapshotOrder.services == currentItem.services) {
+                            snapshot.ref.child("requestStatus").setValue("Accepted")
+                                .addOnSuccessListener {
+                                    Log.d("Updation", "Success")
+                                }
+                                .addOnFailureListener { exception ->
+                                    // Handle failure
+                                    // You can log the error or show an error message to the user
+                                    Log.e("Act", "Error updating request status: $exception")
+                                }
                         }
                     }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Handle errors
+                    Log.e("Act", "Database error: $databaseError")
                 }
             })
 
-            // Remove the rejected service from the list and notify the adapter
-            orderList.removeAt(position)
-            notifyItemRemoved(position)
+        }
 
-            // Implement reject functionality
-            // For example, send a message to the consumer
-            sendMessageToConsumer(currentItem.userId)
+        holder.rejectButton.setOnClickListener {
+            val databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
+
+            val query = databaseReference.orderByChild("providerName").equalTo(currentItem.providerName)
+
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (snapshot in dataSnapshot.children) {
+                        // Assuming there's only one matching request, you can update its status
+                        val requestId = snapshot.key // Assuming the unique identifier is the key of the snapshot
+
+                        // Update requestStatus to "Rejected"
+                        val snapshotOrder = snapshot.getValue(Order::class.java)
+                        if (snapshotOrder != null && snapshotOrder.providerName == currentItem.providerName && snapshotOrder.services == currentItem.services) {
+                            snapshot.ref.child("requestStatus").setValue("Rejected")
+                                .addOnSuccessListener {
+                                    Log.d("Updation", "Success")
+                                }
+                                .addOnFailureListener { exception ->
+                                    // Handle failure
+                                    // You can log the error or show an error message to the user
+                                    Log.e("Act", "Error updating request status: $exception")
+                                }
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle errors
+                    Log.e("Act", "Database error: $databaseError")
+                }
+            })
         }
     }
 
@@ -84,10 +120,6 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
         orderList.clear()
         orderList.addAll(data)
         notifyDataSetChanged()
-    }
-    private fun sendMessageToConsumer(userId: String?) {
-        // Implement message sending functionality
-        // You can use Firebase Cloud Messaging (FCM) or any other messaging system
     }
 }
 

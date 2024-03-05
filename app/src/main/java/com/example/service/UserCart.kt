@@ -87,7 +87,8 @@ class UserCart : ComponentActivity() {
         val userMap = mapOf(
             "userName" to user.email,
             "providerName" to cartsItem.providerName,
-            "services" to cartsItem.services
+            "services" to cartsItem.services,
+            "requestStatus" to "Requested"
         )
         writeNewUser(userMap)
     }

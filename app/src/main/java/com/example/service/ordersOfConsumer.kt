@@ -1,5 +1,6 @@
 package com.example.service
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,36 +15,35 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-data class Order(
-    val userId: String? = null,
-    val services: String? = null,  // Update field1 to services
-    val userName: String? = null,  // Update field2 to userName
-    val providerName: String? = null,
-    val requestStatus:String?=null// Update field3 to providerName
-
+data class myOrder(
+    val userName:String?=null,
+    val providerName:String?=null,
+    val services:String?=null,
+    val requestStatus:String?=null
 )
-
-class CartActivity : ComponentActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var orderAdapter: OrderAdapter
+class ordersOfConsumer : ComponentActivity() {
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var myorderAdapter: MyOrderAdapter
     private lateinit var auth: FirebaseAuth
-    private lateinit var providerName: String
     private lateinit var user: FirebaseUser
+    private lateinit var userName:String
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_orders_of_consumer)
         setContentView(R.layout.cart)
         auth= FirebaseAuth.getInstance()
         // Initialize EditText fields
         user=auth.currentUser!!
-        providerName = user.email.toString()
-        Log.d("CartActivity", "Provider Name: $providerName")
+        userName = user.email.toString()
+        Log.d("CartActivity", "User Name: $userName")
 
         // Initialize RecyclerView and adapter
         recyclerView = findViewById(R.id.recyclerView7)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        orderAdapter = OrderAdapter()
-        recyclerView.adapter = orderAdapter
+        myorderAdapter = MyOrderAdapter()
+        recyclerView.adapter = myorderAdapter
 
         // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().reference.child("requests")
@@ -51,22 +51,21 @@ class CartActivity : ComponentActivity() {
         // Fetch orders data for the specific provider
         fetchOrdersData()
     }
-
     private fun fetchOrdersData() {
-        databaseReference.orderByChild("providerName").equalTo(providerName)
+        databaseReference.orderByChild("userName").equalTo(userName)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val orderList = mutableListOf<Order>()
+                    val orderList = mutableListOf<myOrder>()
 
                     for (snapshot in dataSnapshot.children) {
-                        val order = snapshot.getValue(Order::class.java)
+                        val order = snapshot.getValue(myOrder::class.java)
                         order?.let {
                             orderList.add(it)
                         }
                     }
 
                     // Update the adapter with the retrieved orders data
-                    orderAdapter.setData(orderList)
+                    myorderAdapter.setData(orderList)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
