@@ -1,5 +1,6 @@
 package com.example.service
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,8 @@ class MyOrderAdapter : RecyclerView.Adapter<MyOrderAdapter.MyOrderViewHolder>(){
         holder.textViewStatus.text = currentItem.requestStatus
         holder.ratingsButton.setOnClickListener{
             //Monika..write your code here
+            val intent = Intent(holder.itemView.context, RatingActivity::class.java)
+            holder.itemView.context.startActivity(intent)
         }
     }
     override fun getItemCount(): Int {
